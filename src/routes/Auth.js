@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { authService } from "../fbase";
 import useInput from "../hooks/useInput";
 
@@ -21,10 +22,8 @@ const Auth = () => {
           password.value
         );
       }
-      console.log(data);
-    } catch (e) {
-      // to Do: handling Eror
-      console.log(e);
+    } catch ({ message }) {
+      toast.error(message);
     }
   };
   return (
@@ -46,6 +45,13 @@ const Auth = () => {
         />
         <input type="submit" value={newAccount ? "Create Accont" : "Log In"} />
       </form>
+      <button
+        onClick={() => {
+          setNewAccount(!newAccount);
+        }}
+      >
+        {newAccount ? "Do you have an Account?" : "Don't have an account?"}
+      </button>
       <div>
         <button>Continue with Google</button>
         <button>Continue with Github</button>
