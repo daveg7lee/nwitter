@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { authService } from "../fbase";
+import { authService, firebaseInstance } from "../fbase";
 import useInput from "../hooks/useInput";
 
 const Auth = () => {
@@ -10,20 +10,35 @@ const Auth = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      let data;
       if (newAccount) {
-        data = await authService.createUserWithEmailAndPassword(
+        await authService.createUserWithEmailAndPassword(
           email.value,
           password.value
         );
       } else {
-        data = await authService.signInWithEmailAndPassword(
+        await authService.signInWithEmailAndPassword(
           email.value,
           password.value
         );
       }
     } catch ({ message }) {
       toast.error(message);
+    }
+  };
+  const onSocialClick = async (e) => {
+    const {
+      target: { name },
+    } = e;
+    try {
+      let provider;
+      if (name === "google") {
+        provider = new firebaseInstance.auth.GoogleAuthProvider();
+      } else if (name === "github") {
+        provider = new firebaseInstance.auth.GithubAuthProvider();
+      }
+      await authService.signInWithPopup(provider);
+    } catch (e) {
+      toast.error(e.message);
     }
   };
   return (
@@ -53,8 +68,12 @@ const Auth = () => {
         {newAccount ? "Do you have an Account?" : "Don't have an account?"}
       </button>
       <div>
-        <button>Continue with Google</button>
-        <button>Continue with Github</button>
+        <button name="google" onClick={onSocialClick}>
+          Continue with Google
+        </button>
+        <button name="github" onClick={onSocialClick}>
+          Continue with Github
+        </button>
       </div>
     </div>
   );
