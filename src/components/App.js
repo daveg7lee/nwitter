@@ -20,7 +20,6 @@ const App = () => {
   return (
     <>
       {init ? <AppRouter isLoggedIn={isLoggedIn} /> : <Load />}
-      <footer>&copy; Nwitter {new Date().getFullYear()}</footer>
       <ToastContainer hideProgressBar={true} />
     </>
   );
