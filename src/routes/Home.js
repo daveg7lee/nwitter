@@ -2,27 +2,25 @@ import React, { useEffect, useState } from "react";
 import { dbService } from "../fbase";
 import useInput from "../hooks/useInput";
 
-const Home = () => {
+const Home = ({ userObj }) => {
   const nweet = useInput("");
   const [nweets, setNweets] = useState([]);
-  const getNweets = async () => {
-    const data = await dbService.collection("nweets").get();
-    data.forEach((document) => {
-      const nweetObj = {
-        ...document.data(),
-        id: document.id,
-      };
-      setNweets((prev) => [nweetObj, ...prev]);
-    });
-  };
   useEffect(() => {
-    getNweets();
+    dbService.collection("nweets").onSnapshot((snapshot) => {
+      const nweetArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setNweets(nweetArray);
+    });
   }, []);
   const onSubmit = async (e) => {
     e.preventDefault();
-    await dbService
-      .collection("nweets")
-      .add({ nweet: nweet.value, createdAt: Date.now() });
+    await dbService.collection("nweets").add({
+      text: nweet.value,
+      createdAt: Date.now(),
+      creatorID: userObj.uid,
+    });
     nweet.setValue("");
   };
   return (
@@ -44,10 +42,13 @@ const Home = () => {
           className="button border-blue-600 bg-blue-600 hover:bg-blue-500"
         />
       </form>
-      <div>
+      <div className="w-full h-full flex flex-col justify-center items-center">
         {nweets.map((nweet) => (
-          <div key={nweet.id}>
-            <h4>{nweet.nweet}</h4>
+          <div
+            key={nweet.id}
+            className="h-10 flex justify-center items-center bg-white shadow rounded-full py-6 px-4 my-2"
+          >
+            <h4>{nweet.text}</h4>
           </div>
         ))}
       </div>
