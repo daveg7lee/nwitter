@@ -8,6 +8,7 @@ import {
 import Auth from "../routes/Auth";
 import Home from "../routes/Home";
 import Profile from "../routes/Profile";
+import Footer from "./Footer";
 import Navigation from "./Navigation";
 
 const AppRouter = ({ isLoggedIn }) => {
@@ -17,8 +18,14 @@ const AppRouter = ({ isLoggedIn }) => {
       <Switch>
         {isLoggedIn ? (
           <>
-            <Route exact path="/" component={Home} />
-            <Route path="/profile" component={Profile} />
+            <Route exact path="/">
+              <Home />
+              <Footer />
+            </Route>
+            <Route path="/profile">
+              <Profile />
+              <Footer />
+            </Route>
             <Redirect from="*" to="/" />
           </>
         ) : (

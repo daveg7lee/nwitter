@@ -20,7 +20,7 @@ const App = () => {
   return (
     <>
       {init ? <AppRouter isLoggedIn={isLoggedIn} /> : <Load />}
-      <ToastContainer hideProgressBar={true} />
+      <ToastContainer hideProgressBar={true} draggable pauseOnHover />
     </>
   );
 };
