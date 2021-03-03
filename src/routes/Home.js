@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Nweet from "../components/Nweet";
 import { dbService } from "../fbase";
 import useInput from "../hooks/useInput";
 
@@ -25,7 +26,10 @@ const Home = ({ userObj }) => {
   };
   return (
     <div>
-      <form onSubmit={onSubmit} className="flex justify-center items-center">
+      <form
+        onSubmit={onSubmit}
+        className="flex justify-center items-center mb-4"
+      >
         <div className="rounded-md shadow-sm w-80 mr-2">
           <input
             type="text"
@@ -44,12 +48,11 @@ const Home = ({ userObj }) => {
       </form>
       <div className="w-full h-full flex flex-col justify-center items-center">
         {nweets.map((nweet) => (
-          <div
+          <Nweet
+            nweet={nweet}
             key={nweet.id}
-            className="h-10 flex justify-center items-center bg-white shadow rounded-full py-6 px-4 my-2"
-          >
-            <h4>{nweet.text}</h4>
-          </div>
+            isOwner={nweet.creatorID === userObj.uid}
+          />
         ))}
       </div>
     </div>
