@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Nweet from "../components/Nweet";
-import { dbService } from "../fbase";
+import { dbService, storageService } from "../fbase";
 import useInput from "../hooks/useInput";
 import { FaPlus } from "react-icons/fa";
+import { v4 as uuidv4 } from "uuid";
 
 const Home = ({ userObj }) => {
   const nweet = useInput("");
@@ -19,12 +20,15 @@ const Home = ({ userObj }) => {
   }, []);
   const onSubmit = async (e) => {
     e.preventDefault();
-    await dbService.collection("nweets").add({
+    const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
+    const response = await fileRef.putString(preview, "data_url");
+    console.log(response.metadata);
+    /* await dbService.collection("nweets").add({
       text: nweet.value,
       createdAt: Date.now(),
       creatorID: userObj.uid,
     });
-    nweet.setValue("");
+    nweet.setValue(""); */
   };
   const onFileChange = (e) => {
     const {
