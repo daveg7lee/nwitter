@@ -49,7 +49,7 @@ const Home = ({ userObj }) => {
   };
   const clearPreview = () => setPreview("");
   return (
-    <div className="h-screen">
+    <div className="min-h-screen">
       <form
         onSubmit={onSubmit}
         className="flex flex-col justify-center items-center mb-4"
@@ -98,7 +98,7 @@ const Home = ({ userObj }) => {
           </div>
         )}
       </form>
-      <div className="w-full h-full flex flex-col justify-center items-center">
+      <div className="w-full h-full flex flex-col justify-start items-center">
         {nweets.map((nweet) => (
           <Nweet
             nweet={nweet}

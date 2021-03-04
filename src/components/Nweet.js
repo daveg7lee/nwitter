@@ -12,7 +12,9 @@ const Nweet = ({ nweet, isOwner }) => {
       const ok = window.confirm("Are you sure you want to delete this nweet?");
       if (ok) {
         await dbService.doc(`nweets/${nweet.id}`).delete();
-        await storageService.refFromURL(nweet.fileURL).delete();
+        if (nweet.fileURL) {
+          await storageService.refFromURL(nweet.fileURL).delete();
+        }
       }
     } catch (e) {
       toast.error(e.message);
