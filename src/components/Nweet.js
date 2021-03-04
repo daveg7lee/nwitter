@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  IoTrashOutline,
-  IoPencilSharp,
-  IoCloseOutline,
-  IoArrowForwardOutline,
-} from "react-icons/io5";
+import { IoTrashOutline, IoPencilSharp, IoCloseOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { dbService } from "../fbase";
 import useInput from "../hooks/useInput";
@@ -29,7 +24,7 @@ const Nweet = ({ nweet, isOwner }) => {
     await dbService.doc(`nweets/${nweet.id}`).update({ text: newNweet.value });
   };
   return (
-    <div className="h-10 flex justify-center items-center bg-white shadow rounded-full py-6 px-4 my-1.5">
+    <div className="min-w-max w-40 h-10 flex justify-between items-center bg-white shadow rounded-full py-6 px-5 my-1.5">
       {editing ? (
         <>
           <form onSubmit={onSubmit}>
@@ -46,22 +41,22 @@ const Nweet = ({ nweet, isOwner }) => {
         </>
       ) : (
         <>
-          <h4 className="mr-2">{nweet.text}</h4>
-          <div className="flex items-center">
-            {isOwner && (
-              <>
-                <button
-                  onClick={onDeleteClick}
-                  className="mr-1 focus:outline-none"
-                >
-                  <IoTrashOutline />
-                </button>
-                <button onClick={toggleEditing} className="focus:outline-none">
-                  <IoPencilSharp />
-                </button>
-              </>
-            )}
-          </div>
+          <h4 className="w-full flex justify-center items-center">
+            {nweet.text}
+          </h4>
+          {isOwner && (
+            <div className="flex items-center">
+              <button
+                onClick={onDeleteClick}
+                className="focus:outline-none mr-1"
+              >
+                <IoTrashOutline />
+              </button>
+              <button onClick={toggleEditing} className="focus:outline-none">
+                <IoPencilSharp />
+              </button>
+            </div>
+          )}
         </>
       )}
     </div>
