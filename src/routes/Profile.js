@@ -9,9 +9,11 @@ const Profile = () => {
     history.push("/");
   };
   return (
-    <button onClick={onLogOutClick} className="text-white">
-      Log Out
-    </button>
+    <div className="h-screen">
+      <button onClick={onLogOutClick} className="text-white">
+        Log Out
+      </button>
+    </div>
   );
 };
 

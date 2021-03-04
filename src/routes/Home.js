@@ -49,7 +49,7 @@ const Home = ({ userObj }) => {
   };
   const clearPreview = () => setPreview("");
   return (
-    <div>
+    <div className="h-screen">
       <form
         onSubmit={onSubmit}
         className="flex flex-col justify-center items-center mb-4"

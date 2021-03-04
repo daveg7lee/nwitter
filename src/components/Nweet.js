@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoTrashOutline, IoPencilSharp, IoCloseOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
-import { dbService } from "../fbase";
+import { dbService, storageService } from "../fbase";
 import useInput from "../hooks/useInput";
 
 const Nweet = ({ nweet, isOwner }) => {
@@ -12,6 +12,7 @@ const Nweet = ({ nweet, isOwner }) => {
       const ok = window.confirm("Are you sure you want to delete this nweet?");
       if (ok) {
         await dbService.doc(`nweets/${nweet.id}`).delete();
+        await storageService.refFromURL(nweet.fileURL).delete();
       }
     } catch (e) {
       toast.error(e.message);
