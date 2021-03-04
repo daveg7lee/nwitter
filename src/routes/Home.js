@@ -37,14 +37,15 @@ const Home = ({ userObj }) => {
     };
     reader.readAsDataURL(oneFile);
   };
+  const clearPreview = () => setPreview("");
   return (
     <div>
       <form
         onSubmit={onSubmit}
         className="flex flex-col justify-center items-center mb-4"
       >
-        <div className="flex items-center mb-4">
-          <div className="rounded-md shadow-sm w-80 mr-2">
+        <div className="w-full flex items-center justify-center mb-4">
+          <div className="relative rounded-md shadow-sm w-80 min-w-full sm:min-w-0 flex">
             <input
               type="text"
               placeholder="What's on your mind?"
@@ -53,12 +54,12 @@ const Home = ({ userObj }) => {
               value={nweet.value}
               onChange={nweet.onChange}
             />
+            <input
+              type="submit"
+              value="Nweet"
+              className="absolute right-0 h-full rounded-r border-blue-600 bg-blue-600 hover:bg-blue-500 w-1/5 text-white cursor-pointer"
+            />
           </div>
-          <input
-            type="submit"
-            value="Nweet"
-            className="button border-blue-600 bg-blue-600 hover:bg-blue-500"
-          />
         </div>
         <div>
           <label
@@ -75,6 +76,17 @@ const Home = ({ userObj }) => {
             onChange={onFileChange}
           />
         </div>
+        {preview && (
+          <div className="w-40 h-40 flex flex-col justify-center items-center my-5">
+            <img src={preview} className="rounded-md mb-2" alt="Error"></img>
+            <button
+              onClick={clearPreview}
+              className="button bg-red-500 border-red-500 hover:bg-red-400 hover:border-red-400"
+            >
+              Clear
+            </button>
+          </div>
+        )}
       </form>
       <div className="w-full h-full flex flex-col justify-center items-center">
         {nweets.map((nweet) => (
