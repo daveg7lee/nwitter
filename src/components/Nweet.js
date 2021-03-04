@@ -24,42 +24,49 @@ const Nweet = ({ nweet, isOwner }) => {
     await dbService.doc(`nweets/${nweet.id}`).update({ text: newNweet.value });
   };
   return (
-    <div className="min-w-max w-40 h-10 flex justify-between items-center bg-white shadow rounded-full py-6 px-5 my-1.5">
-      {editing ? (
-        <>
-          <form onSubmit={onSubmit}>
-            <input
-              type="text"
-              value={newNweet.value}
-              onChange={newNweet.onChange}
-              required
-            />
-          </form>
-          <button onClick={toggleEditing} className="focus:outline-none">
-            <IoCloseOutline className="text-xl" />
-          </button>
-        </>
-      ) : (
-        <>
-          <h4 className="w-full flex justify-center items-center">
-            {nweet.text}
-          </h4>
-          {isOwner && (
-            <div className="flex items-center">
-              <button
-                onClick={onDeleteClick}
-                className="focus:outline-none mr-1"
-              >
-                <IoTrashOutline />
-              </button>
-              <button onClick={toggleEditing} className="focus:outline-none">
-                <IoPencilSharp />
-              </button>
-            </div>
-          )}
-        </>
+    <>
+      <div className="min-w-max w-40 h-10 flex justify-between items-center bg-white shadow rounded-full py-6 px-5 my-1.5">
+        {editing ? (
+          <>
+            <form onSubmit={onSubmit}>
+              <input
+                type="text"
+                value={newNweet.value}
+                onChange={newNweet.onChange}
+                required
+              />
+            </form>
+            <button onClick={toggleEditing} className="focus:outline-none">
+              <IoCloseOutline className="text-xl" />
+            </button>
+          </>
+        ) : (
+          <>
+            <h4 className="w-full flex justify-center items-center mr-2">
+              {nweet.text}
+            </h4>
+            {isOwner && (
+              <div className="flex items-center">
+                <button
+                  onClick={onDeleteClick}
+                  className="focus:outline-none mr-1"
+                >
+                  <IoTrashOutline />
+                </button>
+                <button onClick={toggleEditing} className="focus:outline-none">
+                  <IoPencilSharp />
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+      {nweet.fileURL && (
+        <div className="w-40 h-40">
+          <img src={nweet.fileURL} className="rounded"></img>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

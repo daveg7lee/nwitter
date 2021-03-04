@@ -49,10 +49,10 @@ const Auth = () => {
         <h1 className="font-semibold text-4xl mb-4 text-center">
           Log In to Nwitter
         </h1>
-        <div className="bg-white py-9 px-10 shadow sm:rounded-lg sm-px-10">
+        <div className="py-9 px-10 shadow sm:rounded-lg sm-px-10">
           <form onSubmit={onSubmit}>
             <div className="mb-4">
-              <label className="label">Email</label>
+              <label className="label text-white">Email</label>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
                   type="email"
@@ -64,7 +64,7 @@ const Auth = () => {
               </div>
             </div>
             <div className="mb-4">
-              <label className="label">Password</label>
+              <label className="label text-white">Password</label>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
                   type="password"
