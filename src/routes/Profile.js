@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { authService, dbService } from "../fbase";
+import useInput from "../hooks/useInput";
 
 const Profile = ({ userObj }) => {
   const history = useHistory();
+  const displayName = useInput(userObj.displayName);
   const onLogOutClick = () => {
     authService.signOut();
     history.push("/");
@@ -19,8 +21,22 @@ const Profile = ({ userObj }) => {
   useEffect(() => {
     getMyNeetws();
   }, []);
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (userObj.displayName !== displayName.value) {
+      await userObj.updateProfile({ displayName: displayName.value });
+    }
+  };
   return (
     <div className="min-h-screen">
+      <form onSubmit={onSubmit}>
+        <input
+          type="text"
+          value={displayName.value}
+          onChange={displayName.onChange}
+        />
+        <input type="submit" value="Update Profile" />
+      </form>
       <button onClick={onLogOutClick} className="text-white">
         Log Out
       </button>
