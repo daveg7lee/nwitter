@@ -20,7 +20,7 @@ const Navigation = ({ userObj }) => {
           className="h-2/3 flex flex-col justify-evenly items-center"
         >
           <IoPersonSharp className="text-2xl text-blue-500" />
-          <h3 className="text-white">{userObj.displayName}</h3>
+          <h3 className="text-white">{userObj.displayName}'s Profile</h3>
         </Link>
       </ul>
     </nav>

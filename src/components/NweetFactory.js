@@ -9,22 +9,26 @@ const NweetFactory = ({ userObj }) => {
   const nweet = useInput("");
   const [preview, setPreview] = useState("");
   const onSubmit = async (e) => {
-    nweet.setValue("");
-    setPreview("");
-    e.preventDefault();
-    let fileURL = "";
-    if (preview) {
-      const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
-      const response = await fileRef.putString(preview, "data_url");
-      fileURL = await response.ref.getDownloadURL();
+    if (nweet.value !== "") {
+      nweet.setValue("");
+      setPreview("");
+      e.preventDefault();
+      let fileURL = "";
+      if (preview) {
+        const fileRef = storageService
+          .ref()
+          .child(`${userObj.uid}/${uuidv4()}`);
+        const response = await fileRef.putString(preview, "data_url");
+        fileURL = await response.ref.getDownloadURL();
+      }
+      const nweetObj = {
+        text: nweet.value,
+        createdAt: Date.now(),
+        creatorID: userObj.uid,
+        fileURL,
+      };
+      await dbService.collection("nweets").add(nweetObj);
     }
-    const nweetObj = {
-      text: nweet.value,
-      createdAt: Date.now(),
-      creatorID: userObj.uid,
-      fileURL,
-    };
-    await dbService.collection("nweets").add(nweetObj);
   };
   const onFileChange = (e) => {
     const {

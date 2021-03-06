@@ -50,9 +50,7 @@ const Profile = ({ refreshUser, userObj }) => {
           />
         </div>
       </form>
-      <div className="my-10 flex w-5/6 md:w-1/4 items-center">
-        <div className="flex-1 border-t-2 border-gray-200"></div>
-      </div>
+      <div className="my-10 flex w-5/6 md:w-1/4 items-center"></div>
       <div className="w-1/4 flex justify-center">
         <button
           onClick={onLogOutClick}
