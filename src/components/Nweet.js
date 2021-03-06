@@ -66,7 +66,7 @@ const Nweet = ({ nweet, isOwner }) => {
       </div>
       {nweet.fileURL && (
         <div className="w-40 h-40">
-          <img src={nweet.fileURL} className="rounded"></img>
+          <img src={nweet.fileURL} className="rounded" alt="Error"></img>
         </div>
       )}
     </>
