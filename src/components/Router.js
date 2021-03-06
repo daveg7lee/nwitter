@@ -11,7 +11,7 @@ import Profile from "../routes/Profile";
 import Footer from "./Footer";
 import Navigation from "./Navigation";
 
-const AppRouter = ({ isLoggedIn, userObj }) => {
+const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <Router>
       {isLoggedIn && <Navigation userObj={userObj} />}
@@ -23,7 +23,7 @@ const AppRouter = ({ isLoggedIn, userObj }) => {
               <Footer />
             </Route>
             <Route path="/profile">
-              <Profile userObj={userObj} />
+              <Profile userObj={userObj} refreshUser={refreshUser} />
               <Footer />
             </Route>
             <Redirect from="*" to="/" />

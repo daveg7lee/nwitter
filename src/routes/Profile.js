@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import { authService, dbService } from "../fbase";
 import useInput from "../hooks/useInput";
 
-const Profile = ({ userObj }) => {
+const Profile = ({ refreshUser, userObj }) => {
   const history = useHistory();
   const displayName = useInput(userObj.displayName);
   const onLogOutClick = () => {
@@ -25,6 +26,8 @@ const Profile = ({ userObj }) => {
     e.preventDefault();
     if (userObj.displayName !== displayName.value) {
       await userObj.updateProfile({ displayName: displayName.value });
+      toast.success("Profile Updated");
+      refreshUser();
     }
   };
   return (
