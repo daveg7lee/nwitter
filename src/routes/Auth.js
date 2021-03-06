@@ -7,10 +7,10 @@ const Auth = () => {
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h1 className="font-semibold text-4xl mb-4 text-center">
+        <h1 className="font-semibold text-4xl mt-6 text-center text-white">
           Log In to Nwitter
         </h1>
-        <div className="py-9 px-10 shadow sm:rounded-lg sm-px-10">
+        <div className="py-9 px-0 shadow sm:px-10">
           <AuthForm newAccount={newAccount} />
         </div>
         <div className="flex flex-col items-center">

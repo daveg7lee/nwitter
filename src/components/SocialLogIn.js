@@ -26,7 +26,7 @@ const SocialLogIn = () => {
       <button
         name="google"
         onClick={onSocialClick}
-        className="button border-red-400 bg-red-400 hover:bg-red-500 mb-4 w-80 flex items-center justify-center"
+        className="button border-red-500 bg-red-500 hover:bg-red-400 mb-4 w-80 flex items-center justify-center"
       >
         <FaGoogle className="mr-3" />
         Continue with Google
@@ -34,7 +34,7 @@ const SocialLogIn = () => {
       <button
         name="github"
         onClick={onSocialClick}
-        className="button border-gray-600 bg-gray-600 hover:bg-gray-700 w-80 flex items-center justify-center"
+        className="button border-gray-600 bg-gray-600 hover:bg-gray-500 w-80 flex items-center justify-center"
       >
         <GoMarkGithub className="mr-3" />
         Continue with Github

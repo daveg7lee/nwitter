@@ -53,7 +53,7 @@ const AuthForm = ({ newAccount }) => {
       <input
         type="submit"
         value={newAccount ? "Create Accont" : "Log In"}
-        className="button border-blue-600 bg-blue-600 hover:bg-blue-700 w-full mt-4"
+        className="button border-blue-600 bg-blue-600 hover:bg-blue-500 w-full mt-4"
       />
     </form>
   );

@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { authService, dbService } from "../fbase";
 import useInput from "../hooks/useInput";
 
 const Profile = ({ refreshUser, userObj }) => {
+  const [nweets, setNweets] = useState([]);
   const history = useHistory();
   const displayName = useInput(userObj.displayName);
   const onLogOutClick = () => {
@@ -17,6 +18,7 @@ const Profile = ({ refreshUser, userObj }) => {
       .where("creatorID", "==", userObj.uid)
       .orderBy("createdAt")
       .get();
+    setNweets(nweets);
   };
   useEffect(() => {
     getMyNeetws();
@@ -30,18 +32,35 @@ const Profile = ({ refreshUser, userObj }) => {
     }
   };
   return (
-    <div className="min-h-screen">
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          value={displayName.value}
-          onChange={displayName.onChange}
-        />
-        <input type="submit" value="Update Profile" />
+    <div className="min-h-screen flex flex-col items-center">
+      <form onSubmit={onSubmit} className="w-5/6 md:w-1/4">
+        <div className="rounded-md shadow-sm flex relative">
+          <input
+            type="text"
+            value={displayName.value}
+            onChange={displayName.onChange}
+            className="input"
+            maxLength={40}
+            placeholder="Name"
+          />
+          <input
+            type="submit"
+            value="Update"
+            className="px-2 absolute right-0 h-full rounded-r-md bg-blue-600 border-blue-600 hover:bg-blue-500 text-white cursor-pointer"
+          />
+        </div>
       </form>
-      <button onClick={onLogOutClick} className="text-white">
-        Log Out
-      </button>
+      <div className="my-10 flex w-5/6 md:w-1/4 items-center">
+        <div className="flex-1 border-t-2 border-gray-200"></div>
+      </div>
+      <div className="w-1/4 flex justify-center">
+        <button
+          onClick={onLogOutClick}
+          className="button bg-red-600 border-red-600 hover:bg-red-500"
+        >
+          Log Out
+        </button>
+      </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { FaPlus } from "react-icons/fa";
 import useInput from "../hooks/useInput";
 import { v4 as uuidv4 } from "uuid";
 import { dbService, storageService } from "../fbase";
+import { FaTimes } from "react-icons/fa";
 
 const NweetFactory = ({ userObj }) => {
   const nweet = useInput("");
@@ -43,7 +44,7 @@ const NweetFactory = ({ userObj }) => {
       className="flex flex-col justify-center items-center mb-4"
     >
       <div className="w-full flex items-center justify-center mb-4">
-        <div className="relative rounded-md shadow-sm w-80 min-w-full sm:min-w-0 flex">
+        <div className="relative rounded-md shadow-sm w-80 flex">
           <input
             type="text"
             placeholder="What's on your mind?"
@@ -79,9 +80,9 @@ const NweetFactory = ({ userObj }) => {
           <img src={preview} className="rounded-md mb-2" alt="Error"></img>
           <button
             onClick={clearPreview}
-            className="button bg-red-500 border-red-500 hover:bg-red-400 hover:border-red-400"
+            className="text-blue-500 flex items-center"
           >
-            Clear
+            Remove <FaTimes className="text-lg" />
           </button>
         </div>
       )}
